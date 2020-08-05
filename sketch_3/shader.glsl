@@ -3,20 +3,26 @@ uniform vec2 mouse;
 uniform vec2 resolution;
 
 void main( void ) {
-	vec2 p = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
 
-	vec3 destColor = vec3(0.0);
-	for(float i = 0.0; i < 4.0; i++) {
+	vec2 p = 1.0 * (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
 
-		float j = i + 1.0;
-		float myTime = time / 10.0;
 
-		vec2 q = p + vec2(cos(j + myTime * j), sin(myTime * j));
+	float len = 0.01 / length(p.x + sin(p.y * 5.0 + time));
 
-		float len = 0.1 / length(q);
 
-		destColor += len;
-	}
+	float len2 = 0.5 / length(p.x + sin(p.y * 2.0) + 0.2);
 
-	gl_FragColor = vec4(destColor, 1.0);
+	len *= len2;
+
+	float circle = 2.5 / length(vec2(sin(p.x + time), p.y));
+
+	len *= circle;
+
+
+	vec3 color = vec3(step(len, 0.3));
+
+
+
+	gl_FragColor = vec4(color, 1.0);
+
 }
