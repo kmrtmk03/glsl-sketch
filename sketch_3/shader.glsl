@@ -19,7 +19,7 @@ void main( void ) {
 	len *= circle;
 
 
-	vec3 color = vec3(step(len, 0.3));
+	vec3 color = 1.0 - vec3(step(len, 0.3));
 
 
 
